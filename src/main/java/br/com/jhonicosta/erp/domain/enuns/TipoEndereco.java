@@ -1,4 +1,4 @@
-package br.com.jhonicosta.erp.domain;
+package br.com.jhonicosta.erp.domain.enuns;
 
 public enum TipoEndereco {
 

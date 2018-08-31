@@ -7,7 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+
+import br.com.jhonicosta.erp.domain.enuns.TipoEndereco;
 
 @Entity
 public class Endereco implements Serializable {
@@ -20,7 +23,7 @@ public class Endereco implements Serializable {
 	private String logradouro;
 	private String numero;
 	private String complemento;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
@@ -28,11 +31,17 @@ public class Endereco implements Serializable {
 	private String cep;
 	private Integer tipo;
 
+	@ManyToOne
+	@JoinTable(name = "CLIENTE_ENDERECOS", 
+			joinColumns = @JoinColumn(name = "endereco_id"), 
+			inverseJoinColumns = @JoinColumn(name = "cliente_id"))
+	private Cliente cliente;
+
 	public Endereco() {
 	}
 
 	public Endereco(Integer id, String logradouro, String numero, String complemento, Cidade cidade, String bairro,
-			String cep, TipoEndereco tipo) {
+			String cep, TipoEndereco tipo, Cliente cliente) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -41,6 +50,7 @@ public class Endereco implements Serializable {
 		this.bairro = bairro;
 		this.cep = cep;
 		this.tipo = tipo.getCod();
+		this.cliente = cliente;
 	}
 
 	public Integer getId() {
@@ -105,6 +115,14 @@ public class Endereco implements Serializable {
 
 	public void setTipo(TipoEndereco tipo) {
 		this.tipo = tipo.getCod();
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
