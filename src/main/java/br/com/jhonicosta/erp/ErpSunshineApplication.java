@@ -9,10 +9,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.jhonicosta.erp.domain.Categoria;
 import br.com.jhonicosta.erp.domain.Cidade;
+import br.com.jhonicosta.erp.domain.Endereco;
 import br.com.jhonicosta.erp.domain.Estado;
 import br.com.jhonicosta.erp.domain.Produto;
+import br.com.jhonicosta.erp.domain.TipoEndereco;
 import br.com.jhonicosta.erp.repositories.CategoriaRepository;
 import br.com.jhonicosta.erp.repositories.CidadeRepository;
+import br.com.jhonicosta.erp.repositories.EnderecoRepository;
 import br.com.jhonicosta.erp.repositories.EstadoRepository;
 import br.com.jhonicosta.erp.repositories.ProdutoRepository;
 
@@ -30,6 +33,9 @@ public class ErpSunshineApplication implements CommandLineRunner {
 	
 	@Autowired
 	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ErpSunshineApplication.class, args);
@@ -61,6 +67,7 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		
 		instanciaEstadoECidade();
 		
+				
 	}
 	
 	private void instanciaEstadoECidade() {
@@ -103,7 +110,19 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		SC.setCidades(Arrays.asList(joinville));
 		SP.setCidades(Arrays.asList(saoPaulo));
 		
+		Endereco endereco1 = new Endereco(null, "Avenida Visconde de Guarapuava", "2900", null, curitiba, "Centro", "8894738", TipoEndereco.RESIDENCIAL);
+		Endereco endereco2 = new Endereco(null, "Avenida Paulista", "20200", null, saoPaulo, "Centro", "42453", TipoEndereco.COMERCIAL);
+		Endereco endereco3 = new Endereco(null, "Rua Rodolpho Hasselman", "200", null, araucaria, "Fazenda Velha", "8370000", TipoEndereco.RESIDENCIAL);
+		Endereco endereco4 = new Endereco(null, "Rua João Bettega", "3000", null, curitiba, "CIC", "58947549", TipoEndereco.COMERCIAL);
+		
+		curitiba.setEnderecos(Arrays.asList(endereco1, endereco4));
+		saoPaulo.setEnderecos(Arrays.asList(endereco2));
+		araucaria.setEnderecos(Arrays.asList(endereco3));
+		
 		estadoRepository.saveAll(Arrays.asList(PR,SC,SP));
 		cidadeRepository.saveAll(Arrays.asList(curitiba, joinville, saoPaulo, araucaria));
+		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3, endereco4));
+		
 	}
+	
 }
