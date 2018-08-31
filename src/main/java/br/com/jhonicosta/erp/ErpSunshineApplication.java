@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.jhonicosta.erp.domain.Categoria;
+import br.com.jhonicosta.erp.domain.Cidade;
+import br.com.jhonicosta.erp.domain.Estado;
 import br.com.jhonicosta.erp.domain.Produto;
 import br.com.jhonicosta.erp.repositories.CategoriaRepository;
+import br.com.jhonicosta.erp.repositories.CidadeRepository;
+import br.com.jhonicosta.erp.repositories.EstadoRepository;
 import br.com.jhonicosta.erp.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -20,6 +24,12 @@ public class ErpSunshineApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ErpSunshineApplication.class, args);
@@ -49,5 +59,51 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
 		
+		instanciaEstadoECidade();
+		
+	}
+	
+	private void instanciaEstadoECidade() {
+//		
+//		Estado AC = new Estado(null, "Acre", "AC");
+//		Estado AL = new Estado(null, "Alagoas", "AL");
+//		Estado AP = new Estado(null, "Amapá", "AP");
+//		Estado AM = new Estado(null, "Amazonas", "AM");
+//		Estado BA = new Estado(null, "Bahia", "BA");
+//		Estado CE = new Estado(null, "Ceará", "CE");
+//		Estado DF = new Estado(null, "Distrito Federal", "DF");
+//		Estado ES = new Estado(null, "Espírito Santo", "ES");
+//		Estado GO = new Estado(null, "Goiás", "GO");
+//		Estado MA = new Estado(null, "Maranhão", "MA");
+//		Estado MT = new Estado(null, "Mato Grosso", "MT");
+//		Estado MS = new Estado(null, "Mato Grosso do Sul", "MS");
+//		Estado MG = new Estado(null, "Minas Gerais", "MG");
+//		Estado PA = new Estado(null, "Pará", "PA");
+//		Estado PB = new Estado(null, "Paraíba", "PB");
+		Estado PR = new Estado(null, "Paraná", "PR");
+//		Estado PE = new Estado(null, "Pernambuco", "PE");
+//		Estado PI = new Estado(null, "Piauí", "PI");
+//		Estado RJ = new Estado(null, "Rio de Janeiro", "RJ");
+//		Estado RN = new Estado(null, "Rio Grande do Norte", "RN");
+//		Estado RS = new Estado(null, "Rio Grande do Sul", "RS");
+//		Estado RO = new Estado(null, "Rondônia", "RO");
+//		Estado RR = new Estado(null, "Roraima", "RR");
+		Estado SC = new Estado(null, "Santa Catarina", "SC");
+		Estado SP = new Estado(null, "São Paulo", "SP");
+//		Estado SE = new Estado(null, "Sergipe", "SE");
+//		Estado TO = new Estado(null, "Tocantins", "TO");
+		
+		
+		Cidade curitiba = new Cidade(null, "Curitiba", PR);
+		Cidade joinville = new Cidade(null, "Joinville", SC);
+		Cidade saoPaulo = new Cidade(null, "São Paulo", SP);
+		Cidade araucaria = new Cidade(null, "Araucária", PR);
+		
+		PR.setCidades(Arrays.asList(curitiba, araucaria));
+		SC.setCidades(Arrays.asList(joinville));
+		SP.setCidades(Arrays.asList(saoPaulo));
+		
+		estadoRepository.saveAll(Arrays.asList(PR,SC,SP));
+		cidadeRepository.saveAll(Arrays.asList(curitiba, joinville, saoPaulo, araucaria));
 	}
 }
