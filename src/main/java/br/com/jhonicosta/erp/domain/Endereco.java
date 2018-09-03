@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.com.jhonicosta.erp.domain.enuns.TipoEndereco;
 
 @Entity
@@ -31,14 +33,17 @@ public class Endereco implements Serializable {
 	private String cep;
 	private Integer tipo;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinTable(name = "CLIENTE_ENDERECOS", joinColumns = @JoinColumn(name = "endereco_id"), inverseJoinColumns = @JoinColumn(name = "cliente_id"))
 	private Cliente cliente;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinTable(name = "FORNECEDOR_ENDERECOS", joinColumns = @JoinColumn(name = "endereco_id"), inverseJoinColumns = @JoinColumn(name = "fornecedor_id"))
 	private Fornecedor fornecedor;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinTable(name = "USUARIO_ENDERECOS", joinColumns = @JoinColumn(name = "endereco_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
 	private Usuario usuario;

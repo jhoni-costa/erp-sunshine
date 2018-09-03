@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.com.jhonicosta.erp.domain.enuns.TipoUsuario;
 
 @Entity
@@ -33,6 +35,7 @@ public class Usuario implements Serializable {
 	@CollectionTable(name = "USUARIO_TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos;
 

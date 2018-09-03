@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Fornecedor implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,9 +35,11 @@ public class Fornecedor implements Serializable {
 	@CollectionTable(name = "FORNECEDOR_TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "fornecedor")
 	private List<Endereco> enderecos;
 
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "FORNECEDOR_PRODUTOS", 
 		joinColumns = @JoinColumn(name = "fornecedor_id"), 
