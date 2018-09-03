@@ -130,9 +130,14 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		Fornecedor f1 = new Fornecedor(null, "Coca-Cola do Brasil", "coca@coca.com", "595489857423",
 				"http://www.coca-cola.com.br");
 		f1.getTelefones().addAll(Arrays.asList("21029999"));
+		f1.getProdutos().addAll(Arrays.asList(prod1));
+		prod1.getFornecedores().addAll(Arrays.asList(f1));
+		
 		Fornecedor f2 = new Fornecedor(null, "Tirol Laticineos", "tirol@gmail.com", "35653653653",
 				"http://www.tirol.com.br");
 		f2.getTelefones().addAll(Arrays.asList("88889999", "498475984"));
+		f2.getProdutos().addAll(Arrays.asList(prod3));
+		prod3.getFornecedores().addAll(Arrays.asList(f2));
 		
 		Usuario user1 = new Usuario(null, "Jhoni Souza", "jhoni.test@gmail.com", "57429847", TipoUsuario.ADMINSTRATIVO, "123");
 		user1.getTelefones().addAll(Arrays.asList("36243642"));

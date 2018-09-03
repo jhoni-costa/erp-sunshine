@@ -1,6 +1,7 @@
 package br.com.jhonicosta.erp.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -32,6 +36,12 @@ public class Fornecedor implements Serializable {
 	@OneToMany(mappedBy = "fornecedor")
 	private List<Endereco> enderecos;
 
+	@ManyToMany
+	@JoinTable(name = "FORNECEDOR_PRODUTOS", 
+		joinColumns = @JoinColumn(name = "fornecedor_id"), 
+		inverseJoinColumns = @JoinColumn(name = "produto_id"))
+	private List<Produto> produtos = new ArrayList<>();
+	
 	public Fornecedor() {
 	}
 
@@ -97,6 +107,14 @@ public class Fornecedor implements Serializable {
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	@Override
