@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Cliente implements Serializable {
+public class Fornecedor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,23 +22,25 @@ public class Cliente implements Serializable {
 	private Integer id;
 	private String nome;
 	private String email;
-	private String cpfOuCnpf;
+	private String cnpj;
+	private String site;
 
 	@ElementCollection
-	@CollectionTable(name = "CLIENTE_TELEFONE")
+	@CollectionTable(name = "FORNECEDOR_TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "fornecedor")
 	private List<Endereco> enderecos;
 
-	public Cliente() {
+	public Fornecedor() {
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpf) {
+	public Fornecedor(Integer id, String nome, String email, String cnpj, String site) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.cpfOuCnpf = cpfOuCnpf;
+		this.cnpj = cnpj;
+		this.site = site;
 	}
 
 	public Integer getId() {
@@ -65,20 +67,20 @@ public class Cliente implements Serializable {
 		this.email = email;
 	}
 
-	public String getCpfOuCnpf() {
-		return cpfOuCnpf;
+	public String getCnpj() {
+		return cnpj;
 	}
 
-	public void setCpfOuCnpf(String cpfOuCnpf) {
-		this.cpfOuCnpf = cpfOuCnpf;
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public String getSite() {
+		return site;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setSite(String site) {
+		this.site = site;
 	}
 
 	public Set<String> getTelefones() {
@@ -87,6 +89,14 @@ public class Cliente implements Serializable {
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	@Override
@@ -105,7 +115,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Fornecedor other = (Fornecedor) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

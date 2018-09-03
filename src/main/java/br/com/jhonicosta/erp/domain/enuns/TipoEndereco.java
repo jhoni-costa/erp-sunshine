@@ -2,7 +2,7 @@ package br.com.jhonicosta.erp.domain.enuns;
 
 public enum TipoEndereco {
 
-	RESIDENCIAL(1, "Residencial"), COMERCIAL(2, "Comercial");
+	RESIDENCIAL(1, "Residencial"), COMERCIAL(2, "Comercial"), EMPRESARIAL(3, "Empresarial");
 
 	private int cod;
 	private String descricao;

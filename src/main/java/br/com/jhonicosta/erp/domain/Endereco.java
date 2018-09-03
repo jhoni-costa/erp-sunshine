@@ -32,16 +32,18 @@ public class Endereco implements Serializable {
 	private Integer tipo;
 
 	@ManyToOne
-	@JoinTable(name = "CLIENTE_ENDERECOS", 
-			joinColumns = @JoinColumn(name = "endereco_id"), 
-			inverseJoinColumns = @JoinColumn(name = "cliente_id"))
+	@JoinTable(name = "CLIENTE_ENDERECOS", joinColumns = @JoinColumn(name = "endereco_id"), inverseJoinColumns = @JoinColumn(name = "cliente_id"))
 	private Cliente cliente;
+
+	@ManyToOne
+	@JoinTable(name = "FORNECEDOR_ENDERECOS", joinColumns = @JoinColumn(name = "endereco_id"), inverseJoinColumns = @JoinColumn(name = "fornecedor_id"))
+	private Fornecedor fornecedor;
 
 	public Endereco() {
 	}
 
 	public Endereco(Integer id, String logradouro, String numero, String complemento, Cidade cidade, String bairro,
-			String cep, TipoEndereco tipo, Cliente cliente) {
+			String cep, TipoEndereco tipo) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -50,7 +52,6 @@ public class Endereco implements Serializable {
 		this.bairro = bairro;
 		this.cep = cep;
 		this.tipo = tipo.getCod();
-		this.cliente = cliente;
 	}
 
 	public Integer getId() {
@@ -123,6 +124,14 @@ public class Endereco implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 	@Override

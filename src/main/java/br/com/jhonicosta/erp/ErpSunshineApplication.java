@@ -12,6 +12,7 @@ import br.com.jhonicosta.erp.domain.Cidade;
 import br.com.jhonicosta.erp.domain.Cliente;
 import br.com.jhonicosta.erp.domain.Endereco;
 import br.com.jhonicosta.erp.domain.Estado;
+import br.com.jhonicosta.erp.domain.Fornecedor;
 import br.com.jhonicosta.erp.domain.Produto;
 import br.com.jhonicosta.erp.domain.enuns.TipoEndereco;
 import br.com.jhonicosta.erp.repositories.CategoriaRepository;
@@ -19,6 +20,7 @@ import br.com.jhonicosta.erp.repositories.CidadeRepository;
 import br.com.jhonicosta.erp.repositories.ClienteRepository;
 import br.com.jhonicosta.erp.repositories.EnderecoRepository;
 import br.com.jhonicosta.erp.repositories.EstadoRepository;
+import br.com.jhonicosta.erp.repositories.FornecedorRepository;
 import br.com.jhonicosta.erp.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -41,6 +43,9 @@ public class ErpSunshineApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private FornecedorRepository fornecedorRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ErpSunshineApplication.class, args);
@@ -115,15 +120,33 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		
 		Cliente c3 = new Cliente(null, "Maria Souza", "maria@gmail.com", "4243");
 		c3.getTelefones().addAll(Arrays.asList("77777777", "595782409"));
+		
+		Fornecedor f1 = new Fornecedor(null, "Coca-Cola do Brasil", "coca@coca.com", "595489857423", "http://www.coca-cola.com.br");
+		f1.getTelefones().addAll(Arrays.asList("21029999"));
+		Fornecedor f2 = new Fornecedor(null, "Tirol Laticineos", "tirol@gmail.com", "35653653653", "http://www.tirol.com.br");
+		f2.getTelefones().addAll(Arrays.asList("88889999","498475984"));
 
 		Endereco endereco1 = new Endereco(null, "Avenida Visconde de Guarapuava", "2900", null, curitiba, "Centro",
-				"8894738", TipoEndereco.RESIDENCIAL, c1);
+				"8894738", TipoEndereco.RESIDENCIAL);
+		endereco1.setCliente(c1);
 		Endereco endereco2 = new Endereco(null, "Avenida Paulista", "20200", null, saoPaulo, "Centro", "42453",
-				TipoEndereco.COMERCIAL, c2);
+				TipoEndereco.COMERCIAL);
+		endereco2.setCliente(c2);
 		Endereco endereco3 = new Endereco(null, "Rua Rodolpho Hasselman", "200", "Fundos", araucaria, "Fazenda Velha",
-				"8370000", TipoEndereco.RESIDENCIAL, c3);
+				"8370000", TipoEndereco.RESIDENCIAL);
+		endereco3.setCliente(c3);
 		Endereco endereco4 = new Endereco(null, "Rua João Bettega", "3000", null, curitiba, "CIC", "58947549",
-				TipoEndereco.COMERCIAL, c1);
+				TipoEndereco.COMERCIAL);
+		endereco4.setCliente(c1);
+		
+		Endereco endereco5 = new Endereco(null, "Rua Ananindeua", "4300", null, curitiba, "Campo Comprido", "58947549",
+				TipoEndereco.EMPRESARIAL);
+		endereco5.setFornecedor(f1);
+		Endereco endereco6 = new Endereco(null, "Avenida General Gonçalves d'Avilla", "545", null, joinville, "Borda dos Açudes", "574958742",
+				TipoEndereco.EMPRESARIAL);
+		endereco6.setFornecedor(f2);
+		
+		
 
 		curitiba.setEnderecos(Arrays.asList(endereco1, endereco4));
 		saoPaulo.setEnderecos(Arrays.asList(endereco2));
@@ -136,7 +159,8 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(PR, SC, SP));
 		cidadeRepository.saveAll(Arrays.asList(curitiba, joinville, saoPaulo, araucaria));
 		clienteRepository.saveAll(Arrays.asList(c1, c2, c3));
-		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3, endereco4));
+		fornecedorRepository.saveAll(Arrays.asList(f1,f2));
+		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3, endereco4, endereco5, endereco6));
 
 	}
 
