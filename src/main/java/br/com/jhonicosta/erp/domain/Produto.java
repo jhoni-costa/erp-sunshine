@@ -25,18 +25,17 @@ public class Produto implements Serializable {
 	private String descricao;
 	private String barCode;
 	private Double preco;
+	private Integer quantidade;
 
 	@JsonBackReference
 	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA", 
-		joinColumns = @JoinColumn(name = "produto_id"), 
-		inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
 
 	@JsonBackReference
 	@ManyToMany(mappedBy = "produtos")
 	private List<Fornecedor> fornecedores = new ArrayList<>();
-	
+
 	public Produto() {
 	}
 
@@ -102,6 +101,14 @@ public class Produto implements Serializable {
 
 	public void setFornecedores(List<Fornecedor> fornecedores) {
 		this.fornecedores = fornecedores;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	@Override
