@@ -108,8 +108,13 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		SP.setCidades(Arrays.asList(saoPaulo));
 
 		Cliente c1 = new Cliente(null, "Gislane Martins", "gislane@gmail.com", "4394839");
+		c1.getTelefones().addAll(Arrays.asList("99999999", "74857498542"));
+		
 		Cliente c2 = new Cliente(null, "Leticia da Silva", "leticia@gmail.com", "524554645");
+		c2.getTelefones().addAll(Arrays.asList("88888888", "54542542542"));
+		
 		Cliente c3 = new Cliente(null, "Maria Souza", "maria@gmail.com", "4243");
+		c3.getTelefones().addAll(Arrays.asList("77777777", "595782409"));
 
 		Endereco endereco1 = new Endereco(null, "Avenida Visconde de Guarapuava", "2900", null, curitiba, "Centro",
 				"8894738", TipoEndereco.RESIDENCIAL, c1);
