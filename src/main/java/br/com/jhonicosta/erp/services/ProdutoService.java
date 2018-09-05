@@ -19,4 +19,9 @@ public class ProdutoService {
 		return obj.orElse(null);
 	}
 	
+	public Produto insert(Produto obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
+	
 }
