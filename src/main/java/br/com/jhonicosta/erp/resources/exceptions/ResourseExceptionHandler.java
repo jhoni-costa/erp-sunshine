@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.com.jhonicosta.erp.services.exceptions.DataIntegrityException;
 import br.com.jhonicosta.erp.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -17,4 +18,12 @@ public class ResourseExceptionHandler {
 				System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
+
+	@ExceptionHandler(DataIntegrityException.class)
+	public ResponseEntity<StandardError> dataIntegrit(DataIntegrityException e, HttpServletRequest request) {
+		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(),
+				System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
 }
