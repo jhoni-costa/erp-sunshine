@@ -22,4 +22,8 @@ public class FornecedorService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
+	public Fornecedor insert(Fornecedor obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
 }
