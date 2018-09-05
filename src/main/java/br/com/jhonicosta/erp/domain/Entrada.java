@@ -2,9 +2,9 @@ package br.com.jhonicosta.erp.domain;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
+//import javax.persistence.Entity;
 
-@Entity
+//@Entity
 public class Entrada extends Movimentacao {
 	private static final long serialVersionUID = 1L;
 
