@@ -63,6 +63,10 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		Categoria categoria1 = new Categoria(null, "Bebidas");
 		Categoria categoria2 = new Categoria(null, "Bebidas Alcoolicas");
 		Categoria categoria3 = new Categoria(null, "Laticinios");
+		Categoria categoria4 = new Categoria(null, "Mercearia");
+		Categoria categoria5 = new Categoria(null, "Higiene Pessoal");
+		Categoria categoria6 = new Categoria(null, "Frios");
+		Categoria categoria7 = new Categoria(null, "Perfumaria");
 
 		Produto prod1 = new Produto(null, "Coca-cola Zero", "Refrigerante de cola, zero açucar, garrafa PET de 2L",
 				"7257642965942", 3.99);
@@ -78,7 +82,7 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		prod2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
 		prod3.getCategorias().addAll(Arrays.asList(categoria1, categoria3));
 
-		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
+		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
 
 //		Estado AC = new Estado(null, "Acre", "AC");
