@@ -16,7 +16,7 @@ public class FornecedorService {
 	@Autowired
 	private FornecedorRepository repository;
 	
-	public Fornecedor buscar(Integer id) {
+	public Fornecedor find(Integer id) {
 		Optional<Fornecedor> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
