@@ -40,12 +40,12 @@ public class Endereco implements Serializable {
 	private Cliente cliente;
 
 	@JsonBackReference
-	@ManyToOne
+	@OneToOne
 	@JoinTable(name = "FORNECEDOR_ENDERECOS", joinColumns = @JoinColumn(name = "endereco_id"), inverseJoinColumns = @JoinColumn(name = "fornecedor_id"))
 	private Fornecedor fornecedor;
 
 	@JsonBackReference
-	@ManyToOne
+	@OneToOne
 	@JoinTable(name = "USUARIO_ENDERECOS", joinColumns = @JoinColumn(name = "endereco_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
 	private Usuario usuario;
 

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.jhonicosta.erp.domain.Fornecedor;
 import br.com.jhonicosta.erp.dto.FornecedorDTO;
+import br.com.jhonicosta.erp.dto.FornecedorNewDTO;
 import br.com.jhonicosta.erp.services.FornecedorService;
 
 @RestController
@@ -42,7 +43,8 @@ public class FornecedorResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Fornecedor obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody FornecedorNewDTO objDto) {
+		Fornecedor obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

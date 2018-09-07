@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -37,8 +38,8 @@ public class Fornecedor implements Serializable {
 	private Set<String> telefones = new HashSet<>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "fornecedor")
-	private List<Endereco> enderecos;
+	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+	private List<Endereco> enderecos = new ArrayList<>();
 
 	@JsonBackReference
 	@ManyToMany
