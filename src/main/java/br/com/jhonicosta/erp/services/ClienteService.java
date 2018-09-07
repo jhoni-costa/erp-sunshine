@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.jhonicosta.erp.domain.Cliente;
+import br.com.jhonicosta.erp.dto.ClienteDTO;
 import br.com.jhonicosta.erp.repositories.ClienteRepository;
 import br.com.jhonicosta.erp.services.exceptions.ObjectNotFoundException;
 
@@ -36,4 +37,7 @@ public class ClienteService {
 		return repository.save(obj);
 	}
 
+	public Cliente fromDTO(ClienteDTO objDto) {
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpf());
+	}
 }
