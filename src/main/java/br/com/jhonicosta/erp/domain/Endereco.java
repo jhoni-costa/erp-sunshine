@@ -60,7 +60,7 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 		this.bairro = bairro;
 		this.cep = cep;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
 	public Integer getId() {
