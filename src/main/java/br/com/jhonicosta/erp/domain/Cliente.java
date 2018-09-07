@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.jhonicosta.erp.domain.enuns.TipoCliente;
+
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,23 +29,25 @@ public class Cliente implements Serializable {
 	private String nome;
 	private String email;
 	private String cpfOuCnpf;
+	private Integer tipo;
 
 	@ElementCollection
 	@CollectionTable(name = "CLIENTE_TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpf) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpf, TipoCliente tipo) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpf = cpfOuCnpf;
+		this.tipo =  (tipo == null) ? null : tipo.getCod();
 	}
 
 	public Integer getId() {
@@ -92,6 +96,14 @@ public class Cliente implements Serializable {
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+
+	public TipoCliente getTipo() {
+		return TipoCliente.toEnum(tipo);
+	}
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override

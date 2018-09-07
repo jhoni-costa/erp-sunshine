@@ -13,15 +13,16 @@ public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
 	private String nome;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	@Email(message = "Email invalido")
 	private String email;
 	private String cpfOuCnpf;
+	private Integer tipo;
 
 	public ClienteDTO() {
 	}
@@ -31,6 +32,7 @@ public class ClienteDTO implements Serializable {
 		this.nome = cliente.getNome();
 		this.email = cliente.getEmail();
 		this.cpfOuCnpf = cliente.getCpfOuCnpf();
+		this.tipo = (cliente.getTipo() == null) ? null : cliente.getTipo().getCod();
 	}
 
 	public Integer getId() {
@@ -63,6 +65,14 @@ public class ClienteDTO implements Serializable {
 
 	public void setCpfOuCnpf(String cpfOuCnpf) {
 		this.cpfOuCnpf = cpfOuCnpf;
+	}
+
+	public Integer getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 
 }

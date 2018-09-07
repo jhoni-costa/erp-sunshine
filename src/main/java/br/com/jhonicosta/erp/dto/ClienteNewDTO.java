@@ -2,19 +2,40 @@ package br.com.jhonicosta.erp.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import br.com.jhonicosta.erp.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
-	private String email;
-	private String cpfOuCnpf;
 
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "Email invalido")
+	private String email;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String cpfOuCnpj;
+	private Integer tipoCliente;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String logradouro;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String numero;
 	private String complemento;
 	private String bairro;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cep;
-	private Integer tipo;
+	private Integer tipoEndereco;
 
 	private String telefone1;
 	private String telefone2;
@@ -41,12 +62,20 @@ public class ClienteNewDTO implements Serializable {
 		this.email = email;
 	}
 
-	public String getCpfOuCnpf() {
-		return cpfOuCnpf;
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
 	}
 
-	public void setCpfOuCnpf(String cpfOuCnpf) {
-		this.cpfOuCnpf = cpfOuCnpf;
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
+	}
+
+	public Integer getTipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(Integer tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 	public String getLogradouro() {
@@ -89,12 +118,12 @@ public class ClienteNewDTO implements Serializable {
 		this.cep = cep;
 	}
 
-	public Integer getTipo() {
-		return tipo;
+	public Integer getTipoEndereco() {
+		return tipoEndereco;
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setTipoEndereco(Integer tipoEndereco) {
+		this.tipoEndereco = tipoEndereco;
 	}
 
 	public String getTelefone1() {

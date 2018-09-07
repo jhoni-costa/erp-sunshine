@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import br.com.jhonicosta.erp.domain.Cidade;
 import br.com.jhonicosta.erp.domain.Cliente;
 import br.com.jhonicosta.erp.domain.Endereco;
+import br.com.jhonicosta.erp.domain.enuns.TipoCliente;
 import br.com.jhonicosta.erp.domain.enuns.TipoEndereco;
 import br.com.jhonicosta.erp.dto.ClienteDTO;
 import br.com.jhonicosta.erp.dto.ClienteNewDTO;
@@ -71,14 +72,14 @@ public class ClienteService {
 	}
 
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpf());
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpf(), TipoCliente.toEnum(objDto.getTipo()));
 	}
 
 	public Cliente fromDTO(ClienteNewDTO objDto) {
-		Cliente cliente = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpf());
+		Cliente cliente = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipoCliente()));
 		Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(),
-				cidade, objDto.getBairro(), objDto.getCep(), TipoEndereco.toEnum(objDto.getTipo()));
+				cidade, objDto.getBairro(), objDto.getCep(), TipoEndereco.toEnum(objDto.getTipoEndereco()));
 		endereco = endRepository.save(endereco);
 		endereco.setCliente(cliente);
 		cliente.getEnderecos().add(endereco);

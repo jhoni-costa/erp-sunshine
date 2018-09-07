@@ -2,22 +2,22 @@ package br.com.jhonicosta.erp.resources.exceptions;
 
 import java.io.Serializable;
 
-public class FildMessage implements Serializable {
+public class FieldMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String fildName;
 	private String messege;
 
-	public FildMessage() {
+	public FieldMessage() {
 	}
 
-	public FildMessage(String fildName, String messege) {
+	public FieldMessage(String fildName, String messege) {
 		super();
 		this.fildName = fildName;
 		this.messege = messege;
 	}
 
-	public String getFildName() {
+	public String getFieldName() {
 		return fildName;
 	}
 

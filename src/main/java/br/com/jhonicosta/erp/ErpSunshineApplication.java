@@ -15,6 +15,7 @@ import br.com.jhonicosta.erp.domain.Estado;
 import br.com.jhonicosta.erp.domain.Fornecedor;
 import br.com.jhonicosta.erp.domain.Produto;
 import br.com.jhonicosta.erp.domain.Usuario;
+import br.com.jhonicosta.erp.domain.enuns.TipoCliente;
 import br.com.jhonicosta.erp.domain.enuns.TipoEndereco;
 import br.com.jhonicosta.erp.domain.enuns.TipoUsuario;
 import br.com.jhonicosta.erp.repositories.CategoriaRepository;
@@ -25,6 +26,7 @@ import br.com.jhonicosta.erp.repositories.EstadoRepository;
 import br.com.jhonicosta.erp.repositories.FornecedorRepository;
 import br.com.jhonicosta.erp.repositories.ProdutoRepository;
 import br.com.jhonicosta.erp.repositories.UsuarioRepository;
+import br.com.jhonicosta.erp.services.validation.BR.BR;
 
 @SpringBootApplication
 public class ErpSunshineApplication implements CommandLineRunner {
@@ -122,13 +124,13 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		SC.setCidades(Arrays.asList(joinville));
 		SP.setCidades(Arrays.asList(saoPaulo));
 
-		Cliente c1 = new Cliente(null, "Gislane Martins", "gislane@gmail.com", "4394839");
+		Cliente c1 = new Cliente(null, "Gislane Martins", "gislane@gmail.com", BR.cpfGerenarion(), TipoCliente.PESSOA_FISICA);
 		c1.getTelefones().addAll(Arrays.asList("99999999", "74857498542"));
 
-		Cliente c2 = new Cliente(null, "Leticia da Silva", "leticia@gmail.com", "524554645");
+		Cliente c2 = new Cliente(null, "Leticia da Silva", "leticia@gmail.com", "524554645", TipoCliente.PESSOA_JURIDICA);
 		c2.getTelefones().addAll(Arrays.asList("88888888", "54542542542"));
 
-		Cliente c3 = new Cliente(null, "Maria Souza", "maria@gmail.com", "4243");
+		Cliente c3 = new Cliente(null, "Maria Souza", "maria@gmail.com", BR.cpfGerenarion(), TipoCliente.PESSOA_FISICA);
 		c3.getTelefones().addAll(Arrays.asList("77777777", "595782409"));
 
 		Fornecedor f1 = new Fornecedor(null, "Coca-Cola do Brasil", "coca@coca.com", "595489857423",
