@@ -76,11 +76,11 @@ public class ClienteService {
 
 	public Cliente fromDTO(ClienteNewDTO objDto) {
 		Cliente cliente = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpf());
-		System.out.println(objDto.getCpfOuCnpf());
 		Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(),
 				cidade, objDto.getBairro(), objDto.getCep(), TipoEndereco.toEnum(objDto.getTipo()));
 		endereco = endRepository.save(endereco);
+		endereco.setCliente(cliente);
 		cliente.getEnderecos().add(endereco);
 		cliente.getTelefones().add(objDto.getTelefone1());
 		if (objDto.getTelefone2() != null) {
