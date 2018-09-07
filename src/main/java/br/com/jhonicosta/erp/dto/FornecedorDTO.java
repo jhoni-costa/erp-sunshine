@@ -2,15 +2,27 @@ package br.com.jhonicosta.erp.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import br.com.jhonicosta.erp.domain.Fornecedor;
 
 public class FornecedorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
 	private String nome;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "Email invalido")
 	private String email;
 	private String cnpj;
+	private String site;
 
 	public FornecedorDTO() {
 	}
@@ -20,6 +32,7 @@ public class FornecedorDTO implements Serializable {
 		this.nome = fornecedor.getNome();
 		this.email = fornecedor.getEmail();
 		this.cnpj = fornecedor.getCnpj();
+		this.site = fornecedor.getSite();
 	}
 
 	public Integer getId() {
@@ -52,6 +65,14 @@ public class FornecedorDTO implements Serializable {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
 	}
 
 }

@@ -65,6 +65,5 @@ public class ClienteService {
 		cliente.setNome(obj.getNome());
 		cliente.setEmail(obj.getEmail());
 		cliente.setCpfOuCnpf(obj.getCpfOuCnpf());
-		System.out.println(obj.getCpfOuCnpf());
 	}
 }
