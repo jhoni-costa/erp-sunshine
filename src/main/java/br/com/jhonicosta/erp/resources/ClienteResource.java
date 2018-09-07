@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.jhonicosta.erp.domain.Cliente;
 import br.com.jhonicosta.erp.dto.ClienteDTO;
+import br.com.jhonicosta.erp.dto.ClienteNewDTO;
 import br.com.jhonicosta.erp.services.ClienteService;
 
 @RestController
@@ -42,7 +43,7 @@ public class ClienteResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

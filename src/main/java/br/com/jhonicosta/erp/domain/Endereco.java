@@ -25,13 +25,13 @@ public class Endereco implements Serializable {
 	private String logradouro;
 	private String numero;
 	private String complemento;
+	private String bairro;
+	private String cep;
+	private Integer tipo;
 
 	@ManyToOne
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
-	private String bairro;
-	private String cep;
-	private Integer tipo;
 
 	@JsonBackReference
 	@ManyToOne

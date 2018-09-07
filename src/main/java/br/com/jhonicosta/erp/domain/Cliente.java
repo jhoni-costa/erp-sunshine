@@ -1,6 +1,7 @@
 package br.com.jhonicosta.erp.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class Cliente implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos;
+	private List<Endereco> enderecos = new ArrayList<>();
 
 	public Cliente() {
 	}
