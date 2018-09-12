@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.jhonicosta.erp.domain.Fornecedor;
+import br.com.jhonicosta.erp.services.validation.FornecedorUpdate;
 
+@FornecedorUpdate
 public class FornecedorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 

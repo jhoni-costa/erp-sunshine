@@ -4,7 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CNPJ;
 
 import br.com.jhonicosta.erp.services.validation.FornecedorInsert;
 
@@ -20,7 +19,6 @@ public class FornecedorNewDTO {
 	private String email;
 
 	@NotEmpty(message = "Preenchimento obrigatório")
-	@CNPJ
 	private String cnpj;
 	private String site;
 
