@@ -1,6 +1,7 @@
 package br.com.jhonicosta.erp.services.validation.BR;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -48,48 +49,83 @@ public class BR {
 		final Integer digit2 = calculate(tin.substring(0, 12) + digit1, weightTin);
 		return tin.equals(tin.substring(0, 12) + digit1.toString() + digit2.toString());
 	}
-	
+
 	public static String cpfGerenarion() {
-		 List<Integer> cpf = new ArrayList<>();
-	        List<Integer> validador = new ArrayList<>();
-	        Integer validador1 = 0;
+		List<Integer> cpf = new ArrayList<>();
+		Integer validador = 0;
 
-	        Random random = new Random();
+		Random random = new Random();
 
-	        for (int x = 10; x > 1; x--) {
-	            int numero = random.nextInt(10);
-	            cpf.add(numero);
-	            validador.add(x * numero);
-	            validador1 += (x * numero);
-	        }
+		for (int x = 10; x > 1; x--) {
+			int numero = random.nextInt(10);
+			cpf.add(numero);
+			validador += (x * numero);
+		}
 
-	        validador1 = validador1 % 11;
+		validador = validador % 11;
 
-	        if (validador1 < 2) {
-	            cpf.add(0);
-	        } else {
-	            cpf.add(11 - validador1);
-	        }
+		if (validador < 2) {
+			cpf.add(0);
+		} else {
+			cpf.add(11 - validador);
+		}
 
-	        int y = 0;
-	        validador = new ArrayList<>();
-	        validador1 = 0;
-	        for (int x = 11; x > 1; x--) {
-	            validador.add(x * cpf.get(y));
-	            validador1 += (x * cpf.get(y));
-	            y++;
-	        }
+		int y = 0;
+		validador = 0;
+		for (int x = 11; x > 1; x--) {
+			validador += (x * cpf.get(y));
+			y++;
+		}
 
-	        validador1 = validador1 % 11;
-	        if (validador1 < 2) {
-	            cpf.add(0);
-	        } else {
-	            cpf.add(11 - validador1);
-	        }
-	        String cpfValido = "";
-	        for (Integer integer : cpf) {
-	            cpfValido += String.valueOf(integer);
-	        }
-	        return cpfValido;
+		validador = validador % 11;
+		if (validador < 2) {
+			cpf.add(0);
+		} else {
+			cpf.add(11 - validador);
+		}
+		String cpfValido = "";
+		for (Integer integer : cpf) {
+			cpfValido += String.valueOf(integer);
+		}
+		return cpfValido;
+	}
+
+	public static String cnpjGerenarion() {
+		List<Integer> cnpj = new ArrayList<>();
+		List<Integer> validador = Arrays.asList(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
+
+		Random random = new Random();
+
+		for (int x = 9; x > 1; x--) {
+			int numero = random.nextInt(9);
+			cnpj.add(numero);
+		}
+		cnpj.addAll(Arrays.asList(0, 0, 0, 1));
+
+		int numero = 0;
+		for (int i = 0; i < cnpj.size(); i++) {
+			numero += cnpj.get(i) * validador.get(i + 1);
+		}
+		numero = numero % 11;
+		if (numero < 2) {
+			cnpj.add(0);
+		} else {
+			cnpj.add(11 - numero);
+		}
+		numero = 0;
+		for (int i = 0; i < cnpj.size(); i++) {
+			numero += cnpj.get(i) * validador.get(i);
+		}
+		numero = numero % 11;
+		if (numero < 2) {
+			cnpj.add(0);
+		} else {
+			cnpj.add(11 - numero);
+		}
+		String cnpjString = "";
+		for (Integer i : cnpj) {
+			cnpjString += String.valueOf(i);
+		}
+		return (cnpjString);
 	}
 }

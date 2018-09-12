@@ -127,28 +127,28 @@ public class ErpSunshineApplication implements CommandLineRunner {
 		Cliente c1 = new Cliente(null, "Gislane Martins", "gislane@gmail.com", BR.cpfGerenarion(), TipoCliente.PESSOA_FISICA);
 		c1.getTelefones().addAll(Arrays.asList("99999999", "74857498542"));
 
-		Cliente c2 = new Cliente(null, "Leticia da Silva", "leticia@gmail.com", "524554645", TipoCliente.PESSOA_JURIDICA);
+		Cliente c2 = new Cliente(null, "Leticia da Silva", "leticia@gmail.com", BR.cnpjGerenarion(), TipoCliente.PESSOA_JURIDICA);
 		c2.getTelefones().addAll(Arrays.asList("88888888", "54542542542"));
 
 		Cliente c3 = new Cliente(null, "Maria Souza", "maria@gmail.com", BR.cpfGerenarion(), TipoCliente.PESSOA_FISICA);
 		c3.getTelefones().addAll(Arrays.asList("77777777", "595782409"));
 
-		Fornecedor f1 = new Fornecedor(null, "Coca-Cola do Brasil", "coca@coca.com", "595489857423",
+		Fornecedor f1 = new Fornecedor(null, "Coca-Cola do Brasil", "coca@coca.com", BR.cnpjGerenarion(),
 				"http://www.coca-cola.com.br");
 		f1.getTelefones().addAll(Arrays.asList("21029999"));
 		f1.getProdutos().addAll(Arrays.asList(prod1));
 		prod1.getFornecedores().addAll(Arrays.asList(f1));
 		
-		Fornecedor f2 = new Fornecedor(null, "Tirol Laticineos", "tirol@gmail.com", "35653653653",
+		Fornecedor f2 = new Fornecedor(null, "Tirol Laticineos", "tirol@gmail.com", BR.cnpjGerenarion(),
 				"http://www.tirol.com.br");
 		f2.getTelefones().addAll(Arrays.asList("88889999", "498475984"));
 		f2.getProdutos().addAll(Arrays.asList(prod3));
 		prod3.getFornecedores().addAll(Arrays.asList(f2));
 		
-		Usuario user1 = new Usuario(null, "Jhoni Souza", "jhoni.test@gmail.com", "57429847", TipoUsuario.ADMINSTRATIVO, "123");
+		Usuario user1 = new Usuario(null, "Jhoni Souza", "jhoni.test@gmail.com", BR.cpfGerenarion(), TipoUsuario.ADMINSTRATIVO, "123");
 		user1.getTelefones().addAll(Arrays.asList("36243642"));
 		
-		Usuario user2 = new Usuario(null, "Afranio Costa", "afranio@gmail.com", "36536653", TipoUsuario.OPERACIONAL, "123");
+		Usuario user2 = new Usuario(null, "Afranio Costa", "afranio@gmail.com", BR.cpfGerenarion(), TipoUsuario.OPERACIONAL, "123");
 		user2.getTelefones().addAll(Arrays.asList("9494949", "548574928"));
 
 		Endereco endereco1 = new Endereco(null, "Avenida Visconde de Guarapuava", "2900", null, curitiba, "Centro",
