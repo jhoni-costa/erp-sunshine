@@ -6,21 +6,21 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import br.com.jhonicosta.erp.dto.FornecedorNewDTO;
+import br.com.jhonicosta.erp.dto.UsuarioNewDTO;
 import br.com.jhonicosta.erp.resources.exceptions.FieldMessage;
 import br.com.jhonicosta.erp.services.validation.BR.BR;
 
-public class FornecedorInsertValidator implements ConstraintValidator<FornecedorInsert, FornecedorNewDTO> {
+public class UsuarioInsertValidator implements ConstraintValidator<UsuarioInsert, UsuarioNewDTO> {
 	@Override
-	public void initialize(FornecedorInsert ann) {
+	public void initialize(UsuarioInsert ann) {
 	}
 
 	@Override
-	public boolean isValid(FornecedorNewDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(UsuarioNewDTO objDto, ConstraintValidatorContext context) {
 		List<FieldMessage> list = new ArrayList<>();
 
-		if (BR.isValidCPF(objDto.getCnpj())) {
-			list.add(new FieldMessage("cnpj", "CNPJ inválido"));
+		if (!BR.isValidCPF(objDto.getCpf())) {
+			list.add(new FieldMessage("cpf", "CPF inválido"));
 		}
 
 		for (FieldMessage e : list) {
