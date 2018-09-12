@@ -6,12 +6,20 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.jhonicosta.erp.domain.Cliente;
 import br.com.jhonicosta.erp.domain.enuns.TipoCliente;
 import br.com.jhonicosta.erp.dto.ClienteNewDTO;
+import br.com.jhonicosta.erp.repositories.ClienteRepository;
 import br.com.jhonicosta.erp.resources.exceptions.FieldMessage;
 import br.com.jhonicosta.erp.services.validation.BR.BR;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+	
+	@Autowired
+	private ClienteRepository cRepository;
+	
 	@Override
 	public void initialize(ClienteInsert ann) {
 	}
@@ -28,6 +36,10 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 			list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
 		}
 
+		Cliente aux = cRepository.findByEmail(objDto.getEmail());
+		if(aux != null) {
+			list.add(new FieldMessage("email", "Email já existente"));
+		}
 		// inclua os testes aqui, inserindo erros na lista
 
 		for (FieldMessage e : list) {
