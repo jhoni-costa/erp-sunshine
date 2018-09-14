@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,6 +26,8 @@ public class Produto implements Serializable {
 	private String descricao;
 	private String barCode;
 	private Double preco;
+	
+	@Transient
 	private Integer quantidade;
 
 	@JsonIgnore
