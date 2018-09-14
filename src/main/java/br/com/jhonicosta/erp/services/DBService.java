@@ -1,9 +1,9 @@
 package br.com.jhonicosta.erp.services;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +12,11 @@ import br.com.jhonicosta.erp.domain.Categoria;
 import br.com.jhonicosta.erp.domain.Cidade;
 import br.com.jhonicosta.erp.domain.Cliente;
 import br.com.jhonicosta.erp.domain.Endereco;
+import br.com.jhonicosta.erp.domain.Entrada;
 import br.com.jhonicosta.erp.domain.Estado;
 import br.com.jhonicosta.erp.domain.Fornecedor;
 import br.com.jhonicosta.erp.domain.Produto;
+import br.com.jhonicosta.erp.domain.Saida;
 import br.com.jhonicosta.erp.domain.Usuario;
 import br.com.jhonicosta.erp.domain.enuns.TipoCliente;
 import br.com.jhonicosta.erp.domain.enuns.TipoEndereco;
@@ -78,7 +80,9 @@ public class DBService {
 
 		instantiateEndereco();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		instantiateEntrada();
+
+		instantiateSaida();
 
 	}
 
@@ -195,7 +199,7 @@ public class DBService {
 				"http://www.tirol.com.br");
 		f2.getTelefones().addAll(Arrays.asList("88889999", "498475984"));
 		f2.setProdutos(Arrays.asList(prod3));
-		
+
 		prod1.setFornecedores(Arrays.asList(f1));
 		prod3.setFornecedores(Arrays.asList(f2));
 
@@ -279,6 +283,57 @@ public class DBService {
 
 		enderecoRepository.saveAll(
 				Arrays.asList(endereco1, endereco2, endereco3, endereco4, endereco5, endereco6, endereco7, endereco8));
+		clienteRepository.saveAll(Arrays.asList(c1, c2, c3));
+		fornecedorRepository.saveAll(Arrays.asList(f1, f2));
+		usuarioRepository.saveAll(Arrays.asList(user1, user2));
 
+	}
+
+	private void instantiateEntrada() {
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date(System.currentTimeMillis()));
+		cal.add(Calendar.DAY_OF_MONTH, 7);
+
+		Fornecedor fornecedor = fornecedorRepository.findById(2).get();
+		Produto p3 = produtoRepository.findById(3).get();
+		p3.setQuantidade(20);
+		Produto p4 = produtoRepository.findById(4).get();
+		p4.setQuantidade(10);
+		Produto p5 = produtoRepository.findById(5).get();
+		p5.setQuantidade(10);
+
+		Entrada entrada1 = new Entrada(null, cal.getTime(), fornecedor, Arrays.asList(p3, p4, p5));
+		entrada1.setTotal(entrada1.getTotal());
+		p3.setEntrada(Arrays.asList(entrada1));
+		p4.setEntrada(Arrays.asList(entrada1));
+		p5.setEntrada(Arrays.asList(entrada1));
+
+		entradaRepository.save(entrada1);
+		produtoRepository.saveAll(Arrays.asList(p3, p4, p5));
+
+	}
+
+	private void instantiateSaida() {
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date(System.currentTimeMillis()));
+		cal.add(Calendar.DAY_OF_MONTH, 7);
+
+		Cliente cliente = clienteRepository.findById(1).get();
+		Produto produto1 = produtoRepository.findById(1).get();
+		produto1.setQuantidade(1);
+
+		Produto produto2 = produtoRepository.findById(2).get();
+		produto2.setQuantidade(12);
+
+		Saida saida = new Saida(null, cal.getTime(), cliente, Arrays.asList(produto1, produto2));
+		saida.setTotal(saida.getTotal());
+
+		produto1.setSaida(Arrays.asList(saida));
+		produto2.setSaida(Arrays.asList(saida));
+
+		saidaRepository.save(saida);
+		produtoRepository.saveAll(Arrays.asList(produto1, produto2));
 	}
 }

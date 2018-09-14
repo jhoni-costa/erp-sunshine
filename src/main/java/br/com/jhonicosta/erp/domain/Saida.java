@@ -38,10 +38,10 @@ public class Saida implements Serializable {
 	public Saida() {
 	}
 
-	public Saida(Integer id, Date data, Double total, Cliente cliente, List<Produto> produtos) {
+	public Saida(Integer id, Date data, Cliente cliente, List<Produto> produtos) {
+		this.total = 0.0;
 		this.id = id;
 		this.data = data;
-		this.total = total;
 		this.cliente = cliente;
 		this.produtos = produtos;
 	}
@@ -63,6 +63,9 @@ public class Saida implements Serializable {
 	}
 
 	public Double getTotal() {
+		for (Produto produto : produtos) {
+			this.total += (produto.getPreco() * produto.getQuantidade());
+		}
 		return total;
 	}
 
