@@ -36,6 +36,16 @@ public class Produto implements Serializable {
 	@ManyToMany(mappedBy = "produtos")
 	private List<Fornecedor> fornecedores = new ArrayList<>();
 
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "ITENS_ENTRADA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "entrada_id"))
+	private List<Entrada> entrada = new ArrayList<>();
+
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "ITENS_SAIDA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "saida_id"))
+	private List<Saida> saida = new ArrayList<>();
+
 	public Produto() {
 	}
 
@@ -109,6 +119,22 @@ public class Produto implements Serializable {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public List<Saida> getSaida() {
+		return saida;
+	}
+
+	public void setSaida(List<Saida> saida) {
+		this.saida = saida;
+	}
+
+	public List<Entrada> getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(List<Entrada> entrada) {
+		this.entrada = entrada;
 	}
 
 	@Override

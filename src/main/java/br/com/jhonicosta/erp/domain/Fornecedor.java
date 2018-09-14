@@ -30,8 +30,8 @@ public class Fornecedor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private String email;
 	private String cnpj;
 	private String site;
@@ -48,6 +48,10 @@ public class Fornecedor implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "FORNECEDOR_PRODUTOS", joinColumns = @JoinColumn(name = "fornecedor_id"), inverseJoinColumns = @JoinColumn(name = "produto_id"))
 	private List<Produto> produtos = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+	private List<Entrada> entradas = new ArrayList<>();
 
 	public Fornecedor() {
 	}
@@ -122,6 +126,14 @@ public class Fornecedor implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public List<Entrada> getEntradas() {
+		return entradas;
+	}
+
+	public void setEntradas(List<Entrada> entradas) {
+		this.entradas = entradas;
 	}
 
 	@Override
