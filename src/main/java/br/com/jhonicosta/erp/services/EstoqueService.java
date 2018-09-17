@@ -13,7 +13,6 @@ public class EstoqueService {
 	private EstoqueRepository repository;
 
 	public Estoque insert(Estoque obj) {
-		obj.setId(null);
 		return repository.save(obj);
 	}
 }

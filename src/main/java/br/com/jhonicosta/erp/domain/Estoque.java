@@ -15,10 +15,11 @@ public class Estoque implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer quantidade;
 
 	@ManyToOne
 	private Produto produto;
+
+	private Integer quantidade;
 
 	public Estoque() {
 	}
@@ -48,8 +49,14 @@ public class Estoque implements Serializable {
 		return quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public void entradaQuantidade(Integer quantidade) {
 		this.quantidade += quantidade;
+	}
+
+	public void saidaQuantidade(Integer quantidade) {
+		if (this.quantidade > 0) {
+			this.quantidade -= quantidade;
+		}
 	}
 
 	@Override

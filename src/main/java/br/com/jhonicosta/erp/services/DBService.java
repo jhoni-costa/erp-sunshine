@@ -114,7 +114,7 @@ public class DBService {
 
 		Produto prod5 = new Produto(null, "Creme de Leite Tirol", "Creme de Leite Tirol, Caixa tetrapack 200ml",
 				"254257", 0.89);
-		
+
 		prod1.getCategorias().addAll(Arrays.asList(cat1));
 		prod2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		prod3.getCategorias().addAll(Arrays.asList(cat1, cat3));
@@ -124,7 +124,7 @@ public class DBService {
 		cat1.setProdutos(Arrays.asList(prod1, prod2, prod3, prod4));
 		cat2.setProdutos(Arrays.asList(prod2));
 		cat3.setProdutos(Arrays.asList(prod3, prod4, prod5));
-		
+
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5));
 
@@ -133,7 +133,7 @@ public class DBService {
 		Estoque estoque3 = new Estoque(prod3);
 		Estoque estoque4 = new Estoque(prod4);
 		Estoque estoque5 = new Estoque(prod5);
-		
+
 		prod1.setEstoque(estoque1);
 		prod2.setEstoque(estoque2);
 		prod3.setEstoque(estoque3);
@@ -318,19 +318,30 @@ public class DBService {
 		Fornecedor fornecedor = fornecedorRepository.findById(2).get();
 		Produto p3 = produtoRepository.findById(3).get();
 		p3.setQuantidade(20);
+
 		Produto p4 = produtoRepository.findById(4).get();
 		p4.setQuantidade(10);
+
 		Produto p5 = produtoRepository.findById(5).get();
 		p5.setQuantidade(10);
 
 		Entrada entrada1 = new Entrada(null, cal.getTime(), fornecedor, Arrays.asList(p3, p4, p5));
 		entrada1.setTotal(entrada1.getTotal());
+
 		p3.setEntrada(Arrays.asList(entrada1));
 		p4.setEntrada(Arrays.asList(entrada1));
 		p5.setEntrada(Arrays.asList(entrada1));
 
+		Estoque e3 = estoqueRepository.findByProduto(p3);
+		e3.entradaQuantidade(p3.getQuantidade());
+		Estoque e4 = estoqueRepository.findByProduto(p4);
+		e4.entradaQuantidade(p4.getQuantidade());
+		Estoque e5 = estoqueRepository.findByProduto(p5);
+		e5.entradaQuantidade(p5.getQuantidade());
+
 		entradaRepository.save(entrada1);
 		produtoRepository.saveAll(Arrays.asList(p3, p4, p5));
+		estoqueRepository.saveAll(Arrays.asList(e3, e4, e5));
 
 	}
 
@@ -353,7 +364,13 @@ public class DBService {
 		produto1.setSaida(Arrays.asList(saida));
 		produto2.setSaida(Arrays.asList(saida));
 
+		Estoque e1 = estoqueRepository.findByProduto(produto1);
+		e1.saidaQuantidade(produto1.getQuantidade());
+		Estoque e2 = estoqueRepository.findByProduto(produto2);
+		e2.saidaQuantidade(produto2.getQuantidade());
+
 		saidaRepository.save(saida);
 		produtoRepository.saveAll(Arrays.asList(produto1, produto2));
+		estoqueRepository.saveAll(Arrays.asList(e1, e2));
 	}
 }
