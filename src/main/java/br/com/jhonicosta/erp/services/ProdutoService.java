@@ -34,7 +34,7 @@ public class ProdutoService {
 		obj.setId(null);
 		return repository.save(obj);
 	}
-	
+
 	public Produto update(Produto obj) {
 		Produto fornecedor = find(obj.getId());
 		updateData(fornecedor, obj);
@@ -56,7 +56,8 @@ public class ProdutoService {
 	}
 
 	public Produto fromDTO(ProdutoDTO objDto) {
-		return new Produto(objDto.getId(), objDto.getNome(), objDto.getDescricao(), objDto.getBarCode(), objDto.getPreco());
+		return new Produto(objDto.getId(), objDto.getNome(), objDto.getDescricao(), objDto.getBarCode(),
+				objDto.getPreco());
 	}
 
 	private void updateData(Produto fornecedor, Produto obj) {

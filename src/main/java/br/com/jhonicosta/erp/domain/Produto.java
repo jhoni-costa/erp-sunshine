@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +27,7 @@ public class Produto implements Serializable {
 	private String descricao;
 	private String barCode;
 	private Double preco;
-	
+
 	@Transient
 	private Integer quantidade;
 
@@ -48,6 +49,10 @@ public class Produto implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "ITENS_SAIDA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "saida_id"))
 	private List<Saida> saida = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "produto")
+	private Estoque estoque;
 
 	public Produto() {
 	}
@@ -138,6 +143,14 @@ public class Produto implements Serializable {
 
 	public void setEntrada(List<Entrada> entrada) {
 		this.entrada = entrada;
+	}
+
+	public Estoque getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import br.com.jhonicosta.erp.domain.Cliente;
 import br.com.jhonicosta.erp.domain.Endereco;
 import br.com.jhonicosta.erp.domain.Entrada;
 import br.com.jhonicosta.erp.domain.Estado;
+import br.com.jhonicosta.erp.domain.Estoque;
 import br.com.jhonicosta.erp.domain.Fornecedor;
 import br.com.jhonicosta.erp.domain.Produto;
 import br.com.jhonicosta.erp.domain.Saida;
@@ -27,6 +28,7 @@ import br.com.jhonicosta.erp.repositories.ClienteRepository;
 import br.com.jhonicosta.erp.repositories.EnderecoRepository;
 import br.com.jhonicosta.erp.repositories.EntradaRepository;
 import br.com.jhonicosta.erp.repositories.EstadoRepository;
+import br.com.jhonicosta.erp.repositories.EstoqueRepository;
 import br.com.jhonicosta.erp.repositories.FornecedorRepository;
 import br.com.jhonicosta.erp.repositories.ProdutoRepository;
 import br.com.jhonicosta.erp.repositories.SaidaRepository;
@@ -65,6 +67,9 @@ public class DBService {
 
 	@Autowired
 	private SaidaRepository saidaRepository;
+
+	@Autowired
+	private EstoqueRepository estoqueRepository;
 
 	public void instantiateTestDatabase() throws ParseException {
 
@@ -109,18 +114,33 @@ public class DBService {
 
 		Produto prod5 = new Produto(null, "Creme de Leite Tirol", "Creme de Leite Tirol, Caixa tetrapack 200ml",
 				"254257", 0.89);
-
-		cat1.setProdutos(Arrays.asList(prod1, prod2, prod3, prod4));
-		cat2.setProdutos(Arrays.asList(prod2));
-		cat3.setProdutos(Arrays.asList(prod3, prod4, prod5));
-
+		
 		prod1.getCategorias().addAll(Arrays.asList(cat1));
 		prod2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		prod3.getCategorias().addAll(Arrays.asList(cat1, cat3));
 		prod4.setCategorias(Arrays.asList(cat1, cat3));
 		prod5.setCategorias(Arrays.asList(cat3));
 
+		cat1.setProdutos(Arrays.asList(prod1, prod2, prod3, prod4));
+		cat2.setProdutos(Arrays.asList(prod2));
+		cat3.setProdutos(Arrays.asList(prod3, prod4, prod5));
+		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
+		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5));
+
+		Estoque estoque1 = new Estoque(prod1);
+		Estoque estoque2 = new Estoque(prod2);
+		Estoque estoque3 = new Estoque(prod3);
+		Estoque estoque4 = new Estoque(prod4);
+		Estoque estoque5 = new Estoque(prod5);
+		
+		prod1.setEstoque(estoque1);
+		prod2.setEstoque(estoque2);
+		prod3.setEstoque(estoque3);
+		prod4.setEstoque(estoque4);
+		prod5.setEstoque(estoque5);
+
+		estoqueRepository.saveAll(Arrays.asList(estoque1, estoque2, estoque3, estoque4, estoque5));
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5));
 	}
 
