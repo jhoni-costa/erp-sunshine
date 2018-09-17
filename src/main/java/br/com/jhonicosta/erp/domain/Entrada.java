@@ -35,7 +35,7 @@ public class Entrada implements Serializable {
 	private Fornecedor fornecedor;
 
 	@JsonBackReference
-	@ManyToMany(mappedBy = "categorias")
+	@ManyToMany(mappedBy = "entrada")
 	private List<Produto> produtos = new ArrayList<>();
 
 	public Entrada() {

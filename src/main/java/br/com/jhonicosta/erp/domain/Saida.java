@@ -32,7 +32,7 @@ public class Saida implements Serializable {
 	private Cliente cliente;
 
 	@JsonBackReference
-	@ManyToMany(mappedBy = "categorias")
+	@ManyToMany(mappedBy = "saida")
 	private List<Produto> produtos = new ArrayList<>();
 
 	public Saida() {
