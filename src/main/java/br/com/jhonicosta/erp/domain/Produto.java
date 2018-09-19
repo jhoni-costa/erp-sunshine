@@ -29,6 +29,7 @@ public class Produto implements Serializable {
 	private Double preco;
 
 	@Transient
+	@JsonIgnore
 	private Integer quantidade;
 
 	@JsonIgnore
