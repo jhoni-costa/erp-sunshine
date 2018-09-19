@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.jhonicosta.erp.domain.Entrada;
-import br.com.jhonicosta.erp.services.EntradaService;
+import br.com.jhonicosta.erp.domain.Saida;
+import br.com.jhonicosta.erp.services.SaidaService;
 
 @RestController
-@RequestMapping(value = "/entradas")
-public class EntradaResource {
+@RequestMapping(value = "/saidas")
+public class SaidaResource {
 
 	@Autowired
-	private EntradaService service;
+	private SaidaService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Entrada> find(@PathVariable Integer id) {
-		Entrada entrada = service.find(id);
+	public ResponseEntity<Saida> find(@PathVariable Integer id) {
+		Saida entrada = service.find(id);
 		return ResponseEntity.ok().body(entrada);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Entrada>> findAll() {
-		List<Entrada> list = service.findAll();
+	public ResponseEntity<List<Saida>> findAll() {
+		List<Saida> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody Entrada obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Saida obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

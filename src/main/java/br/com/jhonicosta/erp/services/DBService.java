@@ -3,7 +3,6 @@ package br.com.jhonicosta.erp.services;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -311,10 +310,6 @@ public class DBService {
 
 	private void instantiateEntrada() {
 
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date(System.currentTimeMillis()));
-		cal.add(Calendar.DAY_OF_MONTH, 7);
-
 		Fornecedor fornecedor = fornecedorRepository.findById(2).get();
 		Produto p3 = produtoRepository.findById(3).get();
 		p3.setQuantidade(20);
@@ -325,7 +320,7 @@ public class DBService {
 		Produto p5 = produtoRepository.findById(5).get();
 		p5.setQuantidade(10);
 
-		Entrada entrada1 = new Entrada(null, cal.getTime(), fornecedor, Arrays.asList(p3, p4, p5));
+		Entrada entrada1 = new Entrada(null, Calendar.getInstance().getTime(), fornecedor, Arrays.asList(p3, p4, p5));
 		entrada1.setTotal(entrada1.getTotal());
 
 		p3.setEntrada(Arrays.asList(entrada1));
@@ -347,10 +342,6 @@ public class DBService {
 
 	private void instantiateSaida() {
 
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date(System.currentTimeMillis()));
-		cal.add(Calendar.DAY_OF_MONTH, 7);
-
 		Cliente cliente = clienteRepository.findById(1).get();
 		Produto produto1 = produtoRepository.findById(1).get();
 		produto1.setQuantidade(1);
@@ -358,7 +349,7 @@ public class DBService {
 		Produto produto2 = produtoRepository.findById(2).get();
 		produto2.setQuantidade(12);
 
-		Saida saida = new Saida(null, cal.getTime(), cliente, Arrays.asList(produto1, produto2));
+		Saida saida = new Saida(null, Calendar.getInstance().getTime(), cliente, Arrays.asList(produto1, produto2));
 		saida.setTotal(saida.getTotal());
 
 		produto1.setSaida(Arrays.asList(saida));

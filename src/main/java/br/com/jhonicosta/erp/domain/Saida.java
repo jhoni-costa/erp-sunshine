@@ -14,7 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Saida implements Serializable {
@@ -23,15 +24,17 @@ public class Saida implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 	private Date data;
+	
+	@JsonIgnore
 	private Double total;
 
-	@JsonBackReference
 	@OneToOne
 	@JoinTable(name = "CLIENTE_SAIDA", joinColumns = @JoinColumn(name = "saida_id"), inverseJoinColumns = @JoinColumn(name = "cliente_id"))
 	private Cliente cliente;
 
-	@JsonBackReference
 	@ManyToMany(mappedBy = "saida")
 	private List<Produto> produtos = new ArrayList<>();
 
