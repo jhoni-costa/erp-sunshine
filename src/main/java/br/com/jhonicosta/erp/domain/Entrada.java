@@ -14,8 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Entrada implements Serializable {
@@ -27,14 +27,14 @@ public class Entrada implements Serializable {
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date data;
-	private Double total;
+	
+	@JsonIgnore
+	private Double total = 0D;
 
-	@JsonBackReference
 	@OneToOne
 	@JoinTable(name = "FORNECEDOR_ENTRADA", joinColumns = @JoinColumn(name = "entrada_id"), inverseJoinColumns = @JoinColumn(name = "fornecedor_id"))
 	private Fornecedor fornecedor;
 
-	@JsonBackReference
 	@ManyToMany(mappedBy = "entrada")
 	private List<Produto> produtos = new ArrayList<>();
 
@@ -44,7 +44,6 @@ public class Entrada implements Serializable {
 	public Entrada(Integer id, Date data, Fornecedor fornecedor, List<Produto> produtos) {
 		this.id = id;
 		this.data = data;
-		this.total = 0.0;
 		this.fornecedor = fornecedor;
 		this.produtos = produtos;
 	}

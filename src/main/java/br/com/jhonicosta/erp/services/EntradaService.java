@@ -9,35 +9,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import br.com.jhonicosta.erp.domain.Estoque;
-import br.com.jhonicosta.erp.repositories.EstoqueRepository;
+import br.com.jhonicosta.erp.domain.Entrada;
+import br.com.jhonicosta.erp.repositories.EntradaRepository;
 import br.com.jhonicosta.erp.services.exceptions.DataIntegrityException;
 import br.com.jhonicosta.erp.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class EstoqueService {
+public class EntradaService {
 
 	@Autowired
-	private EstoqueRepository repository;
+	private EntradaRepository repository;
 
-	public Estoque find(Integer id) {
-		Optional<Estoque> obj = repository.findById(id);
+	public Entrada find(Integer id) {
+		Optional<Entrada> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Item de estoque não encontrado! Id: " + id + ", Tipo: " + Estoque.class.getName()));
+				"Item de estoque não encontrado! Id: " + id + ", Tipo: " + Entrada.class.getName()));
 	}
 
-	public List<Estoque> findAll() {
+	public List<Entrada> findAll() {
 		return repository.findAll();
 	}
 
 	@Transactional
-	public Estoque insert(Estoque obj) {
+	public Entrada insert(Entrada obj) {
 		return repository.save(obj);
 	}
 
-	public Estoque update(Estoque obj) {
-		Estoque estoque = find(obj.getId());
-		updateData(estoque, obj);
+	public Entrada update(Entrada obj) {
+		Entrada entrada = find(obj.getId());
+		updateData(entrada, obj);
 		return repository.save(obj);
 	}
 
@@ -50,8 +50,10 @@ public class EstoqueService {
 		}
 	}
 
-	private void updateData(Estoque estoque, Estoque obj) {
-		estoque.setProduto(obj.getProduto());
-		estoque.setQuantidade(obj.getQuantidade());
+	private void updateData(Entrada entrada , Entrada obj) {
+		entrada.setData(obj.getData());
+		entrada.setFornecedor(obj.getFornecedor());
+		entrada.setProdutos(obj.getProdutos());
+		entrada.setTotal(obj.getTotal());
 	}
 }

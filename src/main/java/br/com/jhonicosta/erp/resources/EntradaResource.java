@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.jhonicosta.erp.domain.Estoque;
-import br.com.jhonicosta.erp.services.EstoqueService;
+import br.com.jhonicosta.erp.domain.Entrada;
+import br.com.jhonicosta.erp.services.EntradaService;
 
 @RestController
-@RequestMapping(value = "/estoque")
-public class EstoqueResource {
+@RequestMapping(value = "/entrada")
+public class EntradaResource {
 
 	@Autowired
-	private EstoqueService service;
+	private EntradaService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Estoque> find(@PathVariable Integer id) {
-		Estoque estoque = service.find(id);
-		return ResponseEntity.ok().body(estoque);
+	public ResponseEntity<Entrada> find(@PathVariable Integer id) {
+		Entrada entrada = service.find(id);
+		return ResponseEntity.ok().body(entrada);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Estoque>> findAll() {
-		List<Estoque> list = service.findAll();
+	public ResponseEntity<List<Entrada>> findAll() {
+		List<Entrada> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody Estoque obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Entrada obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
