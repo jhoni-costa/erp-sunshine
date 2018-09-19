@@ -49,6 +49,10 @@ public class Estoque implements Serializable {
 		return quantidade;
 	}
 
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
 	public void entradaQuantidade(Integer quantidade) {
 		this.quantidade += quantidade;
 	}
