@@ -17,6 +17,8 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.jhonicosta.erp.dto.FornecedorEntradaDTO;
+
 @Entity
 public class Entrada implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,19 +26,22 @@ public class Entrada implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date data;
-	
+
 	@JsonIgnore
 	private Double total = 0D;
 
+	@JsonIgnore
 	@OneToOne
 	@JoinTable(name = "FORNECEDOR_ENTRADA", joinColumns = @JoinColumn(name = "entrada_id"), inverseJoinColumns = @JoinColumn(name = "fornecedor_id"))
 	private Fornecedor fornecedor;
 
 	@ManyToMany(mappedBy = "entrada")
 	private List<Produto> produtos = new ArrayList<>();
+
+	private FornecedorEntradaDTO fornecedorDTO;
 
 	public Entrada() {
 	}
@@ -46,6 +51,7 @@ public class Entrada implements Serializable {
 		this.data = data;
 		this.fornecedor = fornecedor;
 		this.produtos = produtos;
+		fornecedorDTO = fromDTO(fornecedor);
 	}
 
 	public Integer getId() {
@@ -75,6 +81,14 @@ public class Entrada implements Serializable {
 		this.total = total;
 	}
 
+	public FornecedorEntradaDTO getFornecedorDTO() {
+		return fornecedorDTO;
+	}
+
+	public void setFornecedorDTO(FornecedorEntradaDTO fornecedorDTO) {
+		this.fornecedorDTO = fornecedorDTO;
+	}
+
 	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
@@ -89,6 +103,10 @@ public class Entrada implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public FornecedorEntradaDTO fromDTO(Fornecedor fornecedor) {
+		return new FornecedorEntradaDTO(fornecedor);
 	}
 
 	@Override
